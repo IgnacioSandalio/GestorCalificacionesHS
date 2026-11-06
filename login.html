@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es" data-theme="identidad">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Acceso · JeaDas.Insights</title>
+  <script>/* evita el parpadeo: fija el modo guardado antes de pintar */
+    try { var t = JSON.parse(localStorage.getItem('sge.tema') || '{}'); if (t.modo) document.documentElement.dataset.theme = t.modo; } catch (e) {}
+  </script>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="application-name" content="JeaDas.Insights">
+  <meta name="theme-color" content="#13235A">
+  <script>try { if (sessionStorage.getItem('sge.splash')) document.documentElement.classList.add('sin-splash'); } catch (e) {}</script>
+  <link rel="stylesheet" href="./css/splash.css">
+  <link rel="stylesheet" href="./css/tokens.css">
+  <link rel="stylesheet" href="./css/componentes.css">
+  <link rel="stylesheet" href="./dist/utilidades.css">
+  <style>
+    .acceso { min-height: 100dvh; display: grid; grid-template-rows: auto 1fr; }
+    .acceso__marca {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: calc(0.875rem + env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) 0.875rem max(1rem, env(safe-area-inset-left));
+      background: var(--color-nav-bg); color: var(--color-nav-text); border-bottom: 1px solid var(--color-border);
+    }
+    [data-theme="translucido"] .acceso__marca { -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); }
+    .acceso__marca svg { flex: none; width: 2.25rem; height: 2.25rem; }
+    .acceso__marca b { display: block; font-size: var(--fs-lg); line-height: 1.15; }
+    .acceso__marca small { font-size: var(--fs-sm); opacity: 0.85; }
+    .acceso__linea { display: none; width: 3rem; height: 3px; margin-top: 1rem; background: var(--color-primary-accent); border-radius: 3px; }
+    .acceso__texto { display: none; max-width: 20rem; font-size: var(--fs-base); line-height: 1.6; opacity: 0.92; }
+    .acceso__principal { display: flex; flex-direction: column; padding: 0.75rem max(1rem, env(safe-area-inset-right)) calc(1.5rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left)); }
+    .acceso__acciones { display: flex; justify-content: flex-end; padding: 0.25rem 0 0.5rem; }
+    .acceso__centro { flex: 1; display: flex; align-items: flex-start; justify-content: center; }
+    .acceso__caja { width: 100%; max-width: 28rem; }
+    .acceso__caja .tarjeta { box-shadow: var(--sombra); }
+    .etapa { display: inline-block; margin-bottom: 0.5rem; padding: 0.2rem 0.75rem; border-radius: 999px; background: var(--color-secondary-accent); color: var(--color-on-secondary); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; }
+    form { margin-top: 1.5rem; }
+    form > * + * { margin-top: 1.25rem; }
+
+    @media (min-width: 36rem) { .acceso__centro { align-items: center; } }
+    @media (min-width: 64rem) {
+      .acceso { grid-template-columns: minmax(18rem, 3fr) 7fr; grid-template-rows: 1fr; }
+      .acceso__marca { flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 3rem 2.5rem; border-bottom: 0; border-right: 1px solid var(--color-border); }
+      .acceso__marca > div:first-child { display: flex; align-items: center; gap: 0.75rem; }
+      .acceso__linea, .acceso__texto { display: block; }
+      .acceso__principal { padding: 1.5rem 2.5rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Pantalla de presentación (la misma identidad de la Suite JeaDas.Insights). Una vez por sesión. -->
+  <div id="splash-screen" aria-hidden="true">
+    <div class="splash-luz splash-luz--a"></div>
+    <div class="splash-luz splash-luz--b"></div>
+    <div id="splash-card">
+      <div class="splash-brillo"></div>
+      <div class="splash-identidad">
+        <img src="./favicon.svg" alt="" width="64" height="64">
+        <h1 id="splash-titulo">JeaDas<span>.Insights</span></h1>
+        <p id="splash-mensaje">Gestor Calificaciones HS</p>
+      </div>
+      <div id="splash-progress-bar"><div class="splash-relleno"></div></div>
+    </div>
+  </div>
+  <script>setTimeout(function () { var s = document.getElementById('splash-screen'); if (s) s.remove(); try { sessionStorage.setItem('sge.splash', '1'); } catch (e) {} }, 2700);</script>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+  <div class="acceso">
+    <header class="acceso__marca">
+      <div style="display:flex;align-items:center;gap:.75rem">
+        <img src="./favicon.svg" alt="" width="36" height="36" class="logo-marca">
+        <div><b>JeaDas.Insights</b><small>Gestor Calificaciones HS</small></div>
+      </div>
+      <div>
+        <div class="acceso__linea" aria-hidden="true"></div>
+        <p class="acceso__texto" style="margin-top:1rem">Registre y consulte los reportes de calificaciones de cada periodo, con respaldo de evidencias y avisos oportunos.</p>
+      </div>
+    </header>
+
+    <main class="acceso__principal" id="contenido">
+      <div class="acceso__acciones"><div id="apariencia"></div></div>
+
+      <div class="acceso__centro">
+        <div class="acceso__caja">
+
+          <div id="aviso-demo" class="mensaje mensaje--info" hidden style="margin-bottom:1rem" role="note">
+            <strong>Modo demostración.</strong> Datos ficticios, sin conexión al servidor. Usuarios de prueba:
+            <code>demo.tutor</code> / <code>Temporal1</code> (pedirá cambiar la clave), <code>demo.admin</code> / <code>Temporal1</code>,
+            <code>demo.operador</code>, <code>demo.admin2</code> o <code>demo.super</code> / <code>Clave12345</code>.
+          </div>
+
+          <!-- VISTA 1 · INGRESO -->
+          <section id="vista-login" class="tarjeta" aria-labelledby="t-login">
+            <h1 id="t-login" tabindex="-1">Ingresar al sistema</h1>
+            <p class="muted" style="margin-top:.35rem;font-size:var(--fs-sm)">Use el usuario y la contraseña que le entregó su administrador.</p>
+            <form id="form-login" novalidate>
+              <div>
+                <label for="usuario" class="etiqueta">Usuario</label>
+                <input id="usuario" class="campo" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+              </div>
+              <div>
+                <label for="clave" class="etiqueta">Contraseña</label>
+                <div class="campo-clave">
+                  <input id="clave" class="campo" type="password" autocomplete="current-password" required>
+                  <button type="button" class="ojo" id="ojo-clave"></button>
+                </div>
+                <div class="ojo-barra" id="barra-clave" aria-hidden="true"></div>
+              </div>
+              <p id="error-login" class="mensaje" role="alert" hidden></p>
+              <button id="btn-login" type="submit" class="btn btn--block">Ingresar</button>
+            </form>
+            <p class="muted" style="margin-top:1.25rem;font-size:var(--fs-sm)">¿Olvidó su contraseña? Solicite una nueva a su administrador.</p>
+          </section>
+
+          <!-- VISTA 2 · CAMBIO OBLIGATORIO DE CONTRASEÑA -->
+          <section id="vista-cambio" class="tarjeta" aria-labelledby="t-cambio" hidden>
+            <span class="etapa">PRIMER INGRESO</span>
+            <h1 id="t-cambio" tabindex="-1">Cree su contraseña personal</h1>
+            <p class="muted" style="margin-top:.35rem;font-size:var(--fs-sm)">Por seguridad debe reemplazar la contraseña temporal antes de continuar.</p>
+            <form id="form-cambio" novalidate>
+              <div>
+                <label for="nueva" class="etiqueta">Nueva contraseña</label>
+                <div class="campo-clave">
+                  <input id="nueva" class="campo" type="password" autocomplete="new-password" aria-describedby="reglas" required>
+                  <button type="button" class="ojo" id="ojo-nueva"></button>
+                </div>
+                <div class="ojo-barra" id="barra-nueva" aria-hidden="true"></div>
+              </div>
+              <div>
+                <label for="confirmar" class="etiqueta">Repita la nueva contraseña</label>
+                <div class="campo-clave">
+                  <input id="confirmar" class="campo" type="password" autocomplete="new-password" required>
+                  <button type="button" class="ojo" id="ojo-confirmar"></button>
+                </div>
+                <div class="ojo-barra" id="barra-confirmar" aria-hidden="true"></div>
+              </div>
+              <ul id="reglas" class="reglas" aria-live="polite">
+                <li data-regla="largo"><span data-marca aria-hidden="true">○</span> Al menos 8 caracteres</li>
+                <li data-regla="letra"><span data-marca aria-hidden="true">○</span> Contiene una letra</li>
+                <li data-regla="numero"><span data-marca aria-hidden="true">○</span> Contiene un número</li>
+                <li data-regla="distinta"><span data-marca aria-hidden="true">○</span> Es distinta de la contraseña temporal</li>
+                <li data-regla="igual"><span data-marca aria-hidden="true">○</span> Ambas contraseñas coinciden</li>
+              </ul>
+              <p id="error-cambio" class="mensaje" role="alert" hidden></p>
+              <button id="btn-cambio" type="submit" class="btn btn--block" disabled>Guardar y continuar</button>
+            </form>
+          </section>
+
+          <!-- VISTA 3 · ACCESO CORRECTO (solo demo; en producción se redirige) -->
+          <section id="vista-ok" class="tarjeta" aria-labelledby="t-ok" hidden style="text-align:center">
+            <h1 id="t-ok" tabindex="-1">Acceso correcto</h1>
+            <p id="texto-ok" style="margin-top:.5rem"></p>
+          </section>
+
+          <p id="estado" class="sr-only" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+<script type="module">
+import { montarApariencia } from './js/tema.js';
+import { activarOjo } from './js/ojo.js';
+import { CONFIG, DEMO } from './js/config.js';
+import { obtenerCliente, RUTA_POR_ROL, perfilActual as leerPerfil } from './js/api.js';
+
+const api = await obtenerCliente();
+if (DEMO) document.getElementById('aviso-demo').hidden = false;
+// Si ya hay una sesión válida, entra directamente (salvo que deba cambiar la clave).
+{ const previo = await leerPerfil(api).catch(() => null); if (previo && !previo.debe_cambiar_password) location.replace(RUTA_POR_ROL[previo.rol]); }
+
+/* ---------- Interfaz ---------- */
+const $ = (id) => document.getElementById(id);
+const anuncio = (t) => { $('estado').textContent = ''; setTimeout(() => ($('estado').textContent = t), 30); };
+montarApariencia($('apariencia'));
+
+const vistas = { login: $('vista-login'), cambio: $('vista-cambio'), ok: $('vista-ok') };
+function mostrarVista(n) { for (const [k, el] of Object.entries(vistas)) el.hidden = k !== n; vistas[n].querySelector('h1').focus(); }
+const mostrarError = (id, m) => { const el = $(id); el.textContent = m; el.hidden = false; };
+const limpiarError = (id) => { $(id).hidden = true; $(id).textContent = ''; };
+
+const ojos = {
+  clave:     activarOjo($('clave'),     $('ojo-clave'),     $('barra-clave'),     anuncio),
+  nueva:     activarOjo($('nueva'),     $('ojo-nueva'),     $('barra-nueva'),     anuncio),
+  confirmar: activarOjo($('confirmar'), $('ojo-confirmar'), $('barra-confirmar'), anuncio)
+};
+
+/* ---------- Ingreso ---------- */
+let claveTemporal = '';
+let perfilActual = null;
+
+$('form-login').addEventListener('submit', async (e) => {
+  e.preventDefault(); limpiarError('error-login');
+  const usuario = $('usuario').value.trim().toLowerCase(), clave = $('clave').value;
+  if (!usuario || !clave) return mostrarError('error-login', 'Escriba su usuario y su contraseña.');
+  const btn = $('btn-login'); btn.disabled = true; btn.textContent = 'Verificando…';
+  try {
+    const { data, error } = await api.auth.signInWithPassword({ usuario, password: clave });
+    if (error) {
+      return mostrarError('error-login', error.status === 429 || error.code === 'bloqueado'
+        ? 'Demasiados intentos. Espere unos minutos e intente de nuevo.'
+        : error.code === 'red' || error.code === 'config' || error.code === 'desactivada' || error.code === 'suspendido' ? error.message
+        : 'Usuario o contraseña incorrectos.');                 // genérico: no revela si el usuario existe
+    }
+    const perfil = await leerPerfil(api); const errPerfil = perfil ? null : true;
+    if (errPerfil || !perfil) {
+      await api.auth.signOut();
+      return mostrarError('error-login', 'Su cuenta no está habilitada. Contacte a su administrador.');
+    }
+    perfilActual = perfil;
+    if (perfil.debe_cambiar_password) { claveTemporal = clave; $('clave').value = ''; mostrarVista('cambio'); evaluarReglas(); }
+    else { $('clave').value = ''; irAlPanel(); }
+  } catch {
+    mostrarError('error-login', 'No se pudo conectar. Revise su internet e intente de nuevo.');
+  } finally { btn.disabled = false; btn.textContent = 'Ingresar'; }
+});
+
+/* ---------- Cambio obligatorio ---------- */
+function evaluarReglas() {
+  const n = $('nueva').value, c = $('confirmar').value;
+  const r = {
+    largo: n.length >= 8, letra: /[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(n), numero: /\d/.test(n),
+    distinta: n.length > 0 && n !== claveTemporal, igual: n.length > 0 && n === c
+  };
+  for (const [k, ok] of Object.entries(r)) {
+    const li = document.querySelector(`[data-regla="${k}"]`);
+    li.querySelector('[data-marca]').textContent = ok ? '✓' : '○';
+    li.dataset.ok = String(ok);
+  }
+  const valido = Object.values(r).every(Boolean);
+  $('btn-cambio').disabled = !valido;
+  return valido;
+}
+['nueva', 'confirmar'].forEach((id) => $(id).addEventListener('input', evaluarReglas));
+
+$('form-cambio').addEventListener('submit', async (e) => {
+  e.preventDefault(); limpiarError('error-cambio');
+  if (!evaluarReglas()) return;
+  const btn = $('btn-cambio'); btn.disabled = true; btn.textContent = 'Guardando…';
+  try {
+    const { error: e1 } = await api.auth.updateUser({ password: $('nueva').value, actual: claveTemporal });
+    if (e1) return mostrarError('error-cambio', e1.message || 'No se pudo cambiar la contraseña. Pruebe con otra más segura.');
+    claveTemporal = ''; $('nueva').value = ''; $('confirmar').value = '';
+    irAlPanel();
+  } catch {
+    mostrarError('error-cambio', 'No se pudo conectar. Revise su internet e intente de nuevo.');
+  } finally { btn.textContent = 'Guardar y continuar'; evaluarReglas(); }
+});
+
+function irAlPanel() {
+  location.assign(RUTA_POR_ROL[perfilActual.rol]);
+}
+</script>
+</body>
+</html>

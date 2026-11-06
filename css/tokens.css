@@ -1,0 +1,126 @@
+/* =====================================================================
+   JeaDas.Insights · TOKENS SEMÁNTICOS
+   Regla de oro: los componentes usan SOLO estos tokens, nunca colores sueltos.
+   · Cambiar la identidad de la app = cambiar --color-primary-accent.
+     tema.js recalcula solo hover, foco, texto sobre el botón y texto de enlaces.
+   · Textos (--color-text-main) y fondos (--color-bg) son independientes del acento.
+   · Los 4 modos (identidad, claro, oscuro, translúcido) solo redefinen neutros.
+   ===================================================================== */
+
+:root {
+  /* ----- Tipografía fluida (legible desde 320 px hasta 1440+ px) ----- */
+  --font: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fs-sm:   clamp(0.875rem, 0.85rem + 0.10vw, 0.9375rem);
+  --fs-base: clamp(1rem,     0.98rem + 0.15vw, 1.0625rem);
+  --fs-lg:   clamp(1.125rem, 1.05rem + 0.40vw, 1.3rem);
+  --fs-xl:   clamp(1.375rem, 1.20rem + 1.00vw, 1.9rem);
+  --fs-2xl:  clamp(1.625rem, 1.30rem + 1.60vw, 2.4rem);
+
+  /* ----- Forma y espacio ----- */
+  --radius:    0.875rem;
+  --radius-sm: 0.625rem;
+  --tap:       3rem;        /* 48 px: objetivo táctil mínimo cómodo */
+  --dur:       160ms;
+  --sombra:    0 1px 2px rgb(0 0 0 / 0.12), 0 6px 18px rgb(0 0 0 / 0.10);
+
+  /* ----- ACENTO (valores iniciales; tema.js los recalcula desde el color elegido) ----- */
+  --color-primary-accent:       #214EC2;                   /* azul real: el mismo acento de la Suite JeaDas.Insights */
+  --color-primary-accent-hover: #1E46AF;                   /* 10 % más oscuro */
+  --color-primary-accent-focus: rgb(55 96 200 / 0.45);     /* 10 % más claro, con opacidad */
+  --color-on-accent:            #FFFFFF;                   /* texto sobre el botón (contraste automático) */
+  --color-accent-text:          #6D8FE6;                   /* acento usado como texto/ícono/enlace (AA garantizado) */
+  --color-accent-edge:          #6D8FE6;                   /* borde del botón: asegura que se distinga del fondo */
+
+  /* Acento secundario: avisos, insignias, estados activos */
+  --color-secondary-accent: #8A3DA6;
+  --color-on-secondary:     #FFFFFF;
+
+  --bg-image: none;
+}
+
+/* =====================================================================
+   MODO IDENTIDAD (modo propio de la app) · paleta nueva
+   1 Marino #1C337E · 2 Celeste #19B9DF · 3 Real #214EC2 · 4 Púrpura #8A3DA6
+   5 Eléctrico #1E5BC6 · 6 Azul profundo #13235A (bordes)
+   ===================================================================== */
+[data-theme="identidad"] {
+  color-scheme: dark;
+  --color-bg:            #13235A;      /* idéntico al shell.css de la Suite */
+  --color-surface:       #1A2D6E;
+  --color-surface-solid: #1A2D6E;
+  --color-text-main:     #F4F7FF;
+  --color-text-muted:    #B4C0E6;
+  --color-border:        #2E4796;
+  --color-border-strong: #8FA3E0;      /* bordes de campos: ≥ 3:1 */
+  --color-field-bg:      #1D3278;
+  --color-nav-bg:        #101E50;
+  --color-nav-text:      #FFFFFF;
+  --color-danger:        #FFB4AB;
+  --color-ok:            #7EE0B0;
+  --color-hover-surface: rgb(255 255 255 / 0.08);
+}
+
+/* ===== MODO CLARO ===== */
+[data-theme="claro"] {
+  color-scheme: light;
+  --color-bg:            #F5F7FB;
+  --color-surface:       #FFFFFF;
+  --color-surface-solid: #FFFFFF;
+  --color-text-main:     #111215;
+  --color-text-muted:    #4A5160;
+  --color-border:        #D5DBE8;
+  --color-border-strong: #7A859B;
+  --color-field-bg:      #FFFFFF;
+  --color-nav-bg:        #1C337E;
+  --color-nav-text:      #FFFFFF;
+  --color-danger:        #B3261E;
+  --color-ok:            #1B7A4F;
+  --color-hover-surface: rgb(17 18 21 / 0.06);
+}
+
+/* ===== MODO OSCURO ===== */
+[data-theme="oscuro"] {
+  color-scheme: dark;
+  --color-bg:            #121419;
+  --color-surface:       #1B1E26;
+  --color-surface-solid: #1B1E26;
+  --color-text-main:     #EEF1F7;
+  --color-text-muted:    #A9B1C2;
+  --color-border:        #2E3441;
+  --color-border-strong: #6F7A90;
+  --color-field-bg:      #0D0F13;
+  --color-nav-bg:        #1B1E26;
+  --color-nav-text:      #EEF1F7;
+  --color-danger:        #FF8F85;
+  --color-ok:            #6FD6A2;
+  --color-hover-surface: rgb(255 255 255 / 0.07);
+}
+
+/* ===== MODO TRANSLÚCIDO (vidrio sobre fondo degradado) ===== */
+[data-theme="translucido"] {
+  color-scheme: dark;
+  --color-bg:            #0F1633;                 /* referencia sólida para cálculos de contraste */
+  --color-surface:       rgb(12 18 45 / 0.62);
+  --color-surface-solid: #141C42;
+  --color-text-main:     #FFFFFF;
+  --color-text-muted:    #D3DAF0;
+  --color-border:        rgb(255 255 255 / 0.18);
+  --color-border-strong: rgb(255 255 255 / 0.60);
+  --color-field-bg:      rgb(8 12 32 / 0.55);
+  --color-nav-bg:        rgb(12 18 45 / 0.62);
+  --color-nav-text:      #FFFFFF;
+  --color-danger:        #FFB4AB;
+  --color-ok:            #7EE0B0;
+  --color-hover-surface: rgb(255 255 255 / 0.10);
+  --bg-image:
+    radial-gradient(60rem 40rem at 8% -10%,  #214EC2 0%, transparent 60%),
+    radial-gradient(50rem 40rem at 100% 0%,  #8A3DA6 0%, transparent 55%),
+    radial-gradient(60rem 50rem at 50% 120%, rgb(25 185 223 / 0.45) 0%, transparent 60%),
+    linear-gradient(160deg, #13235A, #0F1633);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-theme="translucido"] {
+    --color-surface: rgb(20 28 66 / 0.94);
+    --color-nav-bg:  rgb(20 28 66 / 0.94);
+  }
+}

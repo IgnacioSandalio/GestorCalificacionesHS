@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es" data-theme="identidad">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>JeaDas.Insights · Gestor Calificaciones HS</title>
+  <meta name="robots" content="noindex">
+  <script>/* evita el parpadeo: fija el modo guardado antes de pintar */
+    try { var t = JSON.parse(localStorage.getItem('sge.tema') || '{}'); if (t.modo) document.documentElement.dataset.theme = t.modo; } catch (e) {}
+  </script>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="application-name" content="JeaDas.Insights">
+  <meta name="theme-color" content="#13235A">
+  <script>try { if (sessionStorage.getItem('sge.splash')) document.documentElement.classList.add('sin-splash'); } catch (e) {}</script>
+  <link rel="stylesheet" href="./css/splash.css">
+  <link rel="stylesheet" href="./css/tokens.css">
+  <link rel="stylesheet" href="./css/componentes.css">
+  <link rel="stylesheet" href="./dist/utilidades.css">
+</head>
+<body>
+  <!-- Pantalla de presentación (la misma identidad de la Suite JeaDas.Insights). Una vez por sesión. -->
+  <div id="splash-screen" aria-hidden="true">
+    <div class="splash-luz splash-luz--a"></div>
+    <div class="splash-luz splash-luz--b"></div>
+    <div id="splash-card">
+      <div class="splash-brillo"></div>
+      <div class="splash-identidad">
+        <img src="./favicon.svg" alt="" width="64" height="64">
+        <h1 id="splash-titulo">JeaDas<span>.Insights</span></h1>
+        <p id="splash-mensaje">Gestor Calificaciones HS</p>
+      </div>
+      <div id="splash-progress-bar"><div class="splash-relleno"></div></div>
+    </div>
+  </div>
+  <script>setTimeout(function () { var s = document.getElementById('splash-screen'); if (s) s.remove(); try { sessionStorage.setItem('sge.splash', '1'); } catch (e) {} }, 2700);</script>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header class="barra">
+    <div class="marca-app">
+      <img src="./favicon.svg" alt="" width="36" height="36" class="logo-marca">
+      <div><b>JeaDas.Insights</b><small>Gestor Calificaciones HS</small></div>
+    </div>
+    <div id="contexto" class="barra__contexto" hidden></div>
+    <div class="barra__der">
+      <div class="barra__usuario" id="usuario-actual"></div>
+      <div id="apariencia"></div>
+      <button type="button" class="btn btn--secundario btn--compacto" id="salir" style="color:inherit;border-color:currentColor">Salir</button>
+    </div>
+  </header>
+  <nav class="pestanas" id="menu" aria-label="Secciones"></nav>
+  <div id="demo-aviso" class="banner" hidden style="margin:0.75rem max(1rem, env(safe-area-inset-left)) 0" role="note">
+    <strong>Modo demostración</strong> Los datos son ficticios y se guardan solo en esta pestaña del navegador.
+  </div>
+  <main id="contenido" class="pagina" tabindex="-1" aria-live="polite"></main>
+  <footer class="pie-app">JeaDas.Insights - Gestor Calificaciones HS</footer>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

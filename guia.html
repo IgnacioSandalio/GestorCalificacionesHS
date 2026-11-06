@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es" data-theme="identidad">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Guía de estilo · JeaDas.Insights</title>
+  <script>try { var t = JSON.parse(localStorage.getItem('sge.tema') || '{}'); if (t.modo) document.documentElement.dataset.theme = t.modo; } catch (e) {}</script>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="application-name" content="JeaDas.Insights">
+  <meta name="theme-color" content="#13235A">
+  <script>try { if (sessionStorage.getItem('sge.splash')) document.documentElement.classList.add('sin-splash'); } catch (e) {}</script>
+  <link rel="stylesheet" href="./css/splash.css">
+  <link rel="stylesheet" href="./css/tokens.css">
+  <link rel="stylesheet" href="./css/componentes.css">
+  <style>
+    main { width: 100%; max-width: 72rem; margin: 0 auto; padding: 1.25rem max(1rem, env(safe-area-inset-right)) calc(2rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left)); }
+    section + section { margin-top: 2rem; }
+    .cabecera-seccion { margin-bottom: 1rem; }
+    .fila { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+    .demo-acentos { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12.5rem), 1fr)); }
+    .demo-acentos .tarjeta { display: grid; gap: 0.5rem; justify-items: start; }
+    .demo-acentos small { color: var(--color-text-muted); }
+    .grid-2 { display: grid; gap: 1rem; }
+    @media (min-width: 48rem) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header class="barra">
+    <strong>JeaDas.Insights · Panel del administrador</strong>
+    <div id="apariencia"></div>
+  </header>
+
+  <main id="contenido">
+    <section aria-labelledby="h-kpi">
+      <div class="cabecera-seccion"><h1 id="h-kpi">Resumen del periodo</h1><p class="muted">Primer Trimestre · cierra el 10/11/2026</p></div>
+      <div class="rejilla-kpi">
+        <article class="tarjeta"><p class="kpi__valor">3</p><p class="kpi__etiqueta">Colegios a su cargo</p></article>
+        <article class="tarjeta"><p class="kpi__valor">214</p><p class="kpi__etiqueta">Estudiantes activos</p></article>
+        <article class="tarjeta"><p class="kpi__valor">168</p><p class="kpi__etiqueta">Tutores registrados</p></article>
+        <article class="tarjeta">
+          <p class="kpi__valor">72 %</p><p class="kpi__etiqueta">Familias con reporte completo</p>
+          <div class="progreso" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Avance del periodo" style="margin-top:.75rem"><span style="width:72%"></span></div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-tabla">
+      <div class="cabecera-seccion"><h2 id="h-tabla">Estudiantes con alertas</h2><p class="muted">En pantallas pequeñas cada fila se convierte en una tarjeta.</p></div>
+      <div class="tarjeta" style="padding:0.5rem">
+        <table class="tabla-resp" role="table">
+          <thead role="rowgroup"><tr role="row">
+            <th role="columnheader" scope="col">Estudiante</th><th role="columnheader" scope="col">RUDE</th><th role="columnheader" scope="col">Curso</th>
+            <th role="columnheader" scope="col">Causa frecuente</th><th role="columnheader" scope="col">Estado</th><th role="columnheader" scope="col"><span class="sr-only">Acción</span></th>
+          </tr></thead>
+          <tbody role="rowgroup">
+            <tr role="row"><td role="cell" data-etiqueta="Estudiante">Lucía Mamani Quispe</td><td role="cell" data-etiqueta="RUDE">RUDE-1042</td><td role="cell" data-etiqueta="Curso">4to. de Primaria</td><td role="cell" data-etiqueta="Causa">Conectividad</td><td role="cell" data-etiqueta="Estado"><span class="insignia insignia--alerta">Bloqueado</span></td><td role="cell"><button class="btn btn--compacto" type="button">Habilitar 48 h</button></td></tr>
+            <tr role="row"><td role="cell" data-etiqueta="Estudiante">Mateo Flores Condori</td><td role="cell" data-etiqueta="RUDE">RUDE-1177</td><td role="cell" data-etiqueta="Curso">4to. de Secundaria</td><td role="cell" data-etiqueta="Causa">Olvido</td><td role="cell" data-etiqueta="Estado"><span class="insignia insignia--aviso">Habilitado</span></td><td role="cell"><button class="btn btn--secundario btn--compacto" type="button">Ver detalle</button></td></tr>
+            <tr role="row"><td role="cell" data-etiqueta="Estudiante">Valentina Rojas Vega</td><td role="cell" data-etiqueta="RUDE">RUDE-0958</td><td role="cell" data-etiqueta="Curso">Inicial 1er año</td><td role="cell" data-etiqueta="Causa">—</td><td role="cell" data-etiqueta="Estado"><span class="insignia insignia--ok">Al día</span></td><td role="cell"><button class="btn btn--secundario btn--compacto" type="button">Ver detalle</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-contraste">
+      <div class="cabecera-seccion"><h2 id="h-contraste">Contraste automático del acento</h2>
+        <p class="muted">Cada botón calcula solo su texto (negro <code>#111215</code> o blanco), su hover (−10 %) y su foco (+10 % con opacidad).</p></div>
+      <div class="demo-acentos" id="demo-acentos"></div>
+    </section>
+
+    <section aria-labelledby="h-controles">
+      <div class="cabecera-seccion"><h2 id="h-controles">Controles</h2></div>
+      <div class="grid-2">
+        <div class="tarjeta stack">
+          <div class="fila"><button class="btn" type="button">Acción principal</button><button class="btn btn--secundario" type="button">Secundaria</button><button class="btn" type="button" disabled>Deshabilitada</button></div>
+          <div class="fila"><span class="insignia insignia--aviso">3 avisos</span><span class="insignia insignia--ok">Al día</span><span class="insignia insignia--alerta">Rezagado</span><a href="#contenido">Un enlace</a></div>
+        </div>
+        <div class="tarjeta">
+          <label class="etiqueta" for="demo-campo">Campo de texto</label>
+          <input id="demo-campo" class="campo" type="text" placeholder="Escriba aquí">
+          <p class="mensaje mensaje--info" style="margin-top:1rem">Mensaje informativo con icono y texto (no solo color).</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<script type="module">
+import { montarApariencia, PALETA_IDENTIDAD, familiaAcento, hexARgb } from './js/tema.js';
+montarApariencia(document.getElementById('apariencia'));
+
+const demo = document.getElementById('demo-acentos');
+const muestras = [...PALETA_IDENTIDAD, { nombre: 'Amarillo mantequilla', hex: '#FFF3A0' }];
+function pintarDemo() {
+  const css = getComputedStyle(document.documentElement);
+  const fondos = ['--color-bg', '--color-surface-solid'].map((v) => css.getPropertyValue(v).trim()).filter(hexARgb);
+  demo.replaceChildren(...muestras.map((m) => {
+    const f = familiaAcento(m.hex, fondos);
+    const c = document.createElement('article'); c.className = 'tarjeta';
+    c.innerHTML = `<button type="button" class="btn" style="--color-primary-accent:${f.acento};--color-primary-accent-hover:${f.hover};--color-primary-accent-focus:${f.foco};--color-on-accent:${f.onAccent};--color-accent-edge:${f.borde};--color-accent-text:${f.texto}">${m.nombre}</button>
+      <small>${m.hex} · texto ${f.onAccent === '#111215' ? 'negro' : 'blanco'} · ${f.contrasteBoton.toFixed(1)}:1</small>`;
+    return c;
+  }));
+}
+document.addEventListener('sge:tema', pintarDemo);
+pintarDemo();
+</script>
+</body>
+</html>
