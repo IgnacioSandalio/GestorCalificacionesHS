@@ -46,7 +46,47 @@ async function iniciar() {
   document.getElementById('demo-aviso').hidden = !DEMO;
   document.getElementById('usuario-actual').replaceChildren(
     `${perfil.nombres} ${perfil.apellidos ?? ''}`.trim(), h('small', {}, ETIQUETA_ROL[perfil.rol]));
-  document.getElementById('salir').addEventListener('click', async () => { await sb.auth.signOut(); irALogin(); });
+  
+document.getElementById('salir').addEventListener('click', async () => {
+
+  const boton = document.getElementById('salir');
+
+  if (boton.disabled) return;
+
+  boton.disabled = true;
+
+  try {
+
+    // Cerrar la sesión primero.
+    const { error } = await sb.auth.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    // Mostrar despedida y redirigir después.
+    if (window.JDISplash) {
+
+      window.JDISplash.despedida('./login.html');
+
+    } else {
+
+      irALogin();
+
+    }
+
+  } catch (error) {
+
+    console.error('Error al cerrar sesión:', error);
+
+    boton.disabled = false;
+
+    alert('No se pudo cerrar la sesión. Intente nuevamente.');
+
+  }
+
+});
+
 
   pintarContexto();
   cx.alCambiar(() => { pintarContexto(); dibujar(); });
