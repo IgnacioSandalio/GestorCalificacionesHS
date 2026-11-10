@@ -62,21 +62,6 @@
 
 }
 
-@keyframes autoOcultarSplash {
-
-    0%, 80% {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    100% {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-}
-
 /* ==========================================================
    PANTALLA PRINCIPAL
    ========================================================== */
@@ -117,11 +102,6 @@
         'Segoe UI',
         Roboto,
         sans-serif;
-
-    animation:
-        autoOcultarSplash
-        2.7s ease forwards;
-
 }
 
 /* ==========================================================
@@ -408,18 +388,30 @@
 }
 
 /* ==========================================================
-   JDI - CORRECCIÓN RESPONSIVE MÓVILES
+   JDI - CONTROL DE VISIBILIDAD DEL SPLASH
+   Version: 3.0
+   Bienvenida y despedida independientes
    ========================================================== */
 
-/* SPLASH: TIEMPO DE PRESENTACIÓN */
+/* SPLASH VISIBLE POR DEFECTO */
 
-#splash-screen:not(.forzar-despedida) {
-    animation: autoOcultarSplash 5s ease forwards;
+#splash-screen {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    display: flex;
+
+    animation: none;
+
+    transition: none;
 }
 
-@keyframes autoOcultarSplash {
+/* ANIMACIÓN EXCLUSIVA DE SALIDA */
 
-    0%, 90% {
+@keyframes splashSalida {
+
+    0% {
         opacity: 1;
         visibility: visible;
     }
@@ -427,10 +419,57 @@
     100% {
         opacity: 0;
         visibility: hidden;
-        pointer-events: none;
     }
 
 }
+
+/* CLASE QUE JAVASCRIPT APLICARÁ AL FINALIZAR */
+
+#splash-screen.splash-ocultando {
+    animation: splashSalida .8s ease forwards;
+    pointer-events: none;
+}
+
+/* DESPEDIDA: IMPEDIR QUE SE OCULTE AUTOMÁTICAMENTE */
+
+#splash-screen.forzar-despedida {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    animation: none;
+}
+
+/* BARRA DE PROGRESO SINCRONIZADA */
+
+#splash-progress-bar > div {
+    animation-duration: 5s !important;
+}
+
+/* RESPETAR ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #splash-screen.splash-ocultando {
+        animation: none;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    #splash-card {
+        animation: none;
+    }
+
+    .splash-brillo,
+    .splash-luz--a,
+    .splash-luz--b {
+        animation: none;
+    }
+
+}
+
+/* ==========================================================
+   JDI - CORRECCIÓN RESPONSIVE MÓVILES
+   ========================================================== */
 
 /* TARJETA: EVITAR DESBORDAMIENTOS */
 
